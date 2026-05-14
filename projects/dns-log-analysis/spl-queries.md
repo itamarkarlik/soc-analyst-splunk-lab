@@ -1,6 +1,8 @@
+# Total DNS Event Count
+```spl
 index="soc-splunk-lab" sourcetype="dns_logs"
 | stats count
-
+```
 Purpose:
 Count the total number of DNS events in the dataset.
 
