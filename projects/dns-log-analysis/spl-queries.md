@@ -9,6 +9,9 @@ Count the total number of DNS events in the dataset.
 ## Result:
 422,130 DNS events were identified.
 
+### Screenshot
+`screenshots/event-count.png`
+
 ---
 
 ## DNS Query Extraction and Frequency Analysis
