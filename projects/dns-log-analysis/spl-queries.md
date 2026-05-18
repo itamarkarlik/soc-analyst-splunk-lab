@@ -1,4 +1,5 @@
 # Total DNS Event Count
+
 ```spl
 index="soc-splunk-lab" sourcetype="dns_logs"
 | stats count
@@ -43,5 +44,23 @@ The DNS query field was extracted from raw events using `rex` because the initia
 
 ### Screenshot
 `screenshots/dns-query-extraction-results.png`
-
 `Dashboards/top-queried-domains-dashboard.png`
+
+## Top Source IP Addresses
+
+```spl
+index="soc-splunk-lab" sourcetype="dns_logs"
+| stats count by source_ip
+| sort - count
+| head 10
+```
+
+### Purpose
+Identify the most active source IP addresses generating DNS traffic within the dataset.
+
+### Result
+The query revealed the top 10 source IP addresses with the highest number of DNS events.  
+This helps identify high-activity hosts and establish baseline network behavior.
+
+### Screenshot
+`screenshots/top-source-ips.png`
