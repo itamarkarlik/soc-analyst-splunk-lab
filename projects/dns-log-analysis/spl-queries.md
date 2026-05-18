@@ -17,17 +17,19 @@ Count the total number of DNS events in the dataset.
 ## DNS Query Extraction and Frequency Analysis
 
 ```spl
-index="soc-splunk-lab" sourcetype="dns_logs"
+index="soc-splunk-lab" sourcetype="dns_logs" port=53
 | rex field=_raw "^(?:\S+\s+){8}(?<dns_query>\S+)"
+| search dns_query!="*.in-addr.arpa"
 | stats count by dns_query
 | sort - count
+| head 10
 ```
 
 ### Purpose
 Extract DNS query domains from raw DNS logs and identify the most frequently requested domains in the dataset.
 
 ### Result
-The query successfully extracted domain names into a new field called `dns_query` and enabled frequency analysis across the DNS dataset.
+The query successfully extracted DNS query domains into a searchable field and enabled frequency analysis across the dataset.
 
 Top observed domains:
 - `teredo.ipv6.microsoft.com`
@@ -41,3 +43,4 @@ The DNS query field was extracted from raw events using `rex` because the initia
 
 ### Screenshot
 `screenshots/dns-query-extraction-results.png`
+`screenshots/top-queried-domains-dashboard.png`
