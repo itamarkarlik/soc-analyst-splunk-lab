@@ -1,5 +1,18 @@
 # Field Extraction Validation
 
+## DNS Log Structure Review
+
+During the initial review of the raw DNS events, the log structure was manually analyzed in order to understand the position of important network fields within the dataset.
+
+Based on the event structure, the following fields were identified:
+- Source IP
+- Source Port
+- Destination IP
+- Destination Port
+- Protocol
+
+The review also showed that most DNS traffic was sent over destination port 53 using UDP.
+
 ## Initial Extraction
 
 An initial field extraction was created using the Splunk UI to identify the DNS `query` field.
