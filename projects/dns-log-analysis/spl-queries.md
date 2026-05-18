@@ -15,32 +15,21 @@ Count the total number of DNS events in the dataset.
 
 ---
 
-## Top Queried DNS Domains
+## Top Queried Domains
 
 ```spl
-index="soc-splunk-lab" sourcetype="dns_logs" port=53
-| rex field=_raw "^(?:\S+\s+){8}(?<dns_query>\S+)"
-| search dns_query!="*.in-addr.arpa"
-| stats count by dns_query
+index="soc-splunk-lab" sourcetype=dns_logs
+| stats count by query
 | sort - count
 | head 10
 ```
 
 ### Purpose
-Extract DNS query domains from raw DNS logs and identify the most frequently requested domains in the dataset.
+Identify the most frequently queried domains within the DNS dataset.
 
 ### Result
-The query successfully extracted DNS query domains into a searchable field and enabled frequency analysis across the dataset.
-
-Top observed domains:
-- `teredo.ipv6.microsoft.com`
-- `tools.google.com`
-- `www.apple.com`
-- `time.apple.com`
-- `safebrowsing.clients.google.com`
-
-### Notes
-The DNS query field was extracted from raw events using `rex` because the initial Splunk UI field extraction did not provide reliable coverage across the full dataset.
+The query displayed the top 10 most requested DNS domains based on total query count.  
+This helps establish normal DNS activity patterns and identify frequently accessed services or domains.
 
 ### Screenshot
 `Dashboards/top-queried-domains-dashboard.png`
