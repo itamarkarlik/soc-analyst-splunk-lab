@@ -14,7 +14,7 @@ Count the total number of DNS events in the dataset.
 
 ---
 
-## DNS Query Extraction and Frequency Analysis
+## Top Queried DNS Domains
 
 ```spl
 index="soc-splunk-lab" sourcetype="dns_logs" port=53
