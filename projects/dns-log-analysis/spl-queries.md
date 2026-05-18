@@ -43,7 +43,6 @@ Top observed domains:
 The DNS query field was extracted from raw events using `rex` because the initial Splunk UI field extraction did not provide reliable coverage across the full dataset.
 
 ### Screenshot
-`screenshots/dns-query-extraction-results.png`
 `Dashboards/top-queried-domains-dashboard.png`
 
 ## Top Source IP Addresses
@@ -63,4 +62,4 @@ The query revealed the top 10 source IP addresses with the highest number of DNS
 This helps identify high-activity hosts and establish baseline network behavior.
 
 ### Screenshot
-`screenshots/top-source-ips.png`
+`Dashboards/top-source-ip.png`
