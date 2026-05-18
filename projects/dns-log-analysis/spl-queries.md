@@ -44,4 +44,4 @@ The DNS query field was extracted from raw events using `rex` because the initia
 ### Screenshot
 `screenshots/dns-query-extraction-results.png`
 
-`screenshots/top-queried-domains-dashboard.png`
+`Dashboards/top-queried-domains-dashboard.png`
