@@ -69,3 +69,25 @@ Identify source IP addresses generating DNS requests to a high number of unique 
 ### Result
 The query displayed the top 10 source IP addresses with the highest number of unique queried domains.  
 This analysis helps identify potentially unusual DNS behavior.
+
+## Long DNS Query Detection
+
+```spl
+index="soc-splunk-lab" sourcetype="dns_logs"
+| eval query_length=len(dns_query)
+| where query_length > 50
+| table _time src_ip dns_query query_length
+| sort - query_length
+```
+
+### Purpose
+Identify unusually long DNS queries that may indicate abnormal DNS activity, encoded subdomains, or potential DNS tunneling behavior.
+
+### Result
+DNS queries with unusually long domain names were identified during the analysis.  
+The reviewed events appeared consistent with legitimate DNS testing activity and no clearly malicious behavior was observed in the current dataset.
+
+### Screenshot
+```
+screenshots/long-dns-queries.png
+```
