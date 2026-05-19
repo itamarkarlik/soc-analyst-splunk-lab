@@ -13,6 +13,7 @@ The DNS dataset contains 422,130 events successfully ingested into Splunk.
 
 This confirms successful log ingestion and validates that the dataset is ready for further DNS analysis and threat hunting activities.
 
+---
 
 ## Finding 1 - Suspicious DNS Activity
 
@@ -47,6 +48,11 @@ Observed internal host:
 
 ```text
 192.168.202.136
+```
+### Screenshot
+
+```text
+screenshots/domain-tld-activity.png
 ```
 
 ### Conclusion
