@@ -38,6 +38,15 @@ The DNS dataset was imported into a custom Splunk lab environment for analysis a
 | Source Type | dns_logs |
 | Splunk Index | soc-splunk-lab |
 
+## Dataset Source
+
+The DNS log dataset used in this project was obtained from the following public repository:
+
+https://github.com/0xrajneesh/Splunk-Projects-For-Beginners
+
+The dataset was imported into a custom Splunk lab environment and analyzed as part of this investigation project.
+
+
 ---
 
 ## Key Analysis Performed
