@@ -15,6 +15,7 @@ Count the total number of DNS events in the dataset.
 
 ---
 
+
 ## Top Queried Domains
 
 ```spl
