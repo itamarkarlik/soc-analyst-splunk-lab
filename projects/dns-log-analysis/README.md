@@ -1,206 +1,105 @@
-# SPL Queries
+# DNS Log Analysis with Splunk
 
-## Total DNS Event Count
+## Project Overview
 
-```spl
-index="soc-splunk-lab" sourcetype="dns_logs"
-| stats count
-```
+This project focuses on DNS traffic analysis using Splunk Enterprise and a dataset containing over 422,000 DNS log events.
 
-### Purpose
+The investigation included:
 
-Count the total number of DNS events in the dataset.
+- DNS traffic analysis
+- Threat hunting
+- Suspicious domain investigation
+- Time-based DNS analysis
+- Dashboard creation
+- Threat intelligence enrichment using VirusTotal and AbuseIPDB
 
-### Result
-
-422,130 DNS events were identified.
-
-### Screenshot
-
-```text
-screenshots/event-count.png
-```
+The DNS dataset was imported into a custom Splunk lab environment for analysis and investigation.
 
 ---
 
-## Top Queried Domains
+## Technologies Used
 
-```spl
-index="soc-splunk-lab" sourcetype="dns_logs"
-| stats count by query
-| sort - count
-| head 10
-```
-
-### Purpose
-
-Identify the most frequently queried domains within the DNS dataset.
-
-### Result
-
-The query displayed the top 10 most requested DNS domains based on total query count.  
-This helps establish normal DNS activity patterns and identify frequently accessed services or domains.
-
-### Screenshot
-
-```text
-Dashboards/top-queried-domains-dashboard.png
-```
+- Splunk Enterprise
+- SPL (Search Processing Language)
+- VMware Workstation
+- Ubuntu Server (Splunk Server)
+- Windows 11 VM
+- VirusTotal
+- AbuseIPDB
 
 ---
 
-## Top Source IP Addresses
+## Dataset Information
 
-```spl
-index="soc-splunk-lab" sourcetype="dns_logs"
-| stats count by source_ip
-| sort - count
-| head 10
-```
-
-### Purpose
-
-Identify the most active source IP addresses generating DNS traffic within the dataset.
-
-### Result
-
-The query revealed the top 10 source IP addresses with the highest number of DNS events.  
-This helps identify high-activity hosts and establish baseline network behavior.
-
-### Screenshot
-
-```text
-Dashboards/top-source-ip.png
-```
+| Item | Value |
+|---|---|
+| Data Type | DNS Logs |
+| Total Events | 422,130 |
+| Source Type | dns_logs |
+| Splunk Index | soc-splunk-lab |
 
 ---
 
-## Unique Queried Domains by Source IP
+## Key Analysis Performed
 
-```spl
-index="soc-splunk-lab" sourcetype="dns_logs"
-| stats count dc(query) as unique_domains by source_ip
-| sort - unique_domains
-| head 10
-```
-
-### Purpose
-
-Identify source IP addresses generating DNS requests to a high number of unique domains.
-
-### Result
-
-The query displayed the top 10 source IP addresses with the highest number of unique queried domains.  
-This analysis helps identify potentially unusual DNS behavior.
+- Total DNS event analysis
+- Top queried domains
+- Top source IP addresses
+- Rare DNS query analysis
+- Suspicious TLD investigation
+- Long DNS query detection
+- DNS traffic analysis over time
+- Threat intelligence enrichment
+- Source IP correlation
 
 ---
 
-## Long DNS Query Detection
+## Dashboards
 
-```spl
-index="soc-splunk-lab" sourcetype="dns_logs"
-| eval query_length=len(query)
-| where query_length > 50
-| table _time source_ip query query_length
-| sort - query_length
-```
+The following dashboards were created during the investigation:
 
-### Purpose
-
-Identify unusually long DNS queries that may indicate abnormal DNS activity, encoded subdomains, or potential DNS tunneling behavior.
-
-### Result
-
-DNS queries with unusually long domain names were identified during the analysis.  
-The reviewed events appeared consistent with legitimate DNS testing activity, and no clearly malicious behavior was observed in the current dataset.
-
-### Screenshot
-
-```text
-screenshots/long-dns-queries.png
-```
+- Top Queried Domains
+- Top Source IP Addresses
+- DNS Activity Over Time
 
 ---
 
-## Suspicious TLD Investigation
+## Findings Summary
 
-```spl
-index="soc-splunk-lab" sourcetype="dns_logs"
-| where match(query, "\.(xyz|top|club|info|ru)$")
-| stats count by query
-| sort - count
-```
+### Suspicious Domain Activity
 
-### Purpose
-
-Identify DNS queries associated with potentially suspicious or uncommon top-level domains (TLDs), such as `.ru`, `.info`, `.xyz`, `.top`, and `.club`.
-
-### Result
-
-Two DNS queries matched the selected TLD patterns during the analysis.  
-The domains were further investigated using external threat intelligence platforms, including VirusTotal and AbuseIPDB.  
-One domain, `www.ironwarez.info`, was flagged as suspicious/malicious during enrichment analysis.
-
-### Screenshots
+The investigation identified repeated DNS requests associated with:
 
 ```text
-screenshots/suspicious-tlds.png
+www.ironwarez.info
 ```
 
-```text
-screenshots/suspicious-tlds-VirusTotal.png
-```
+The domain was flagged as suspicious/malicious during external threat intelligence enrichment analysis.
 
 ---
 
-## Rare DNS Query Analysis
+### P2P / Torrent-Related Activity
 
-```spl
-index="soc-splunk-lab" sourcetype="dns_logs"
-| stats count by query
-| where count=1
-| sort query
-```
-
-### Purpose
-
-Identify rare or low-frequency DNS queries that may indicate unusual activity, uncommon domains, or potential threat hunting opportunities.
-
-### Result
-
-Several low-frequency DNS queries were identified during the analysis.  
-Among the observed domains were `update.utorrent.com` and `search.vuze.com`, which are associated with torrent/P2P software services.
-
-These domains were later reviewed using external threat intelligence platforms for additional context.
-
-### Screenshot
+Rare DNS query analysis identified DNS requests related to torrent/P2P-associated services, including:
 
 ```text
-screenshots/rare-dns-queries.png
+update.utorrent.com
+search.vuze.com
 ```
+
+The activity originated from multiple internal hosts within the dataset.
 
 ---
 
-## DNS Activity Over Time
-
-```spl
-index="soc-splunk-lab" sourcetype="dns_logs"
-| rex field=_raw "^(?<unix_time>\d+\.\d+)"
-| eval _time=unix_time
-| timechart span=1m count as dns_events
-```
-
-### Purpose
-
-Visualize DNS traffic activity over time in order to identify traffic spikes and overall DNS activity patterns throughout the captured dataset.
-
-### Result
-
-The analysis revealed multiple spikes in DNS traffic volume during the observed timeframe.  
-The query also validated that event timestamps were successfully extracted and usable for time-based analysis within Splunk.
-
-### Screenshot
+## Project Structure
 
 ```text
-Dashboards/dns-activity-over-time-panel.png
+projects/dns-log-analysis/
+│
+├── Dashboards/
+├── screenshots/
+├── README.md
+├── findings.md
+├── investigation-notes.md
+└── spl-queries.md
 ```
