@@ -59,7 +59,7 @@ This helps identify high-activity hosts and establish baseline network behavior.
 
 ```spl
 index="soc-splunk-lab" sourcetype="dns_logs"
-| stats count dc(dns_query) as unique_domains by src_ip
+| stats count dc(query) as unique_domains by source_ip
 | sort - unique_domains
 | head 10
 ```
@@ -75,9 +75,9 @@ This analysis helps identify potentially unusual DNS behavior.
 
 ```spl
 index="soc-splunk-lab" sourcetype="dns_logs"
-| eval query_length=len(dns_query)
+| eval query_length=len(query)
 | where query_length > 50
-| table _time src_ip dns_query query_length
+| table _time source_ip query query_length
 | sort - query_length
 ```
 
@@ -116,4 +116,35 @@ screenshots/suspicious-tlds.png
 ```
 ```text
 screenshots/suspicious-tlds-VirusTotal.png
+```
+
+## Rare DNS Query Analysis
+
+```spl
+index="soc-splunk-lab" sourcetype="dns_logs"
+| stats count by query
+| where count=1
+| sort query
+```
+
+### Purpose
+
+Identify rare or low-frequency DNS queries that may indicate unusual activity, uncommon domains, or potential threat hunting opportunities.
+
+### Result
+
+Several low-frequency DNS queries were identified during the analysis.  
+Some observed domains were associated with torrent/P2P-related infrastructure, including:
+
+```text
+update.utorrent.com
+search.vuze.com
+```
+
+These domains were later reviewed using external threat intelligence platforms for additional context.
+
+### Screenshot
+
+```text
+screenshots/rare-dns-queries.png
 ```
