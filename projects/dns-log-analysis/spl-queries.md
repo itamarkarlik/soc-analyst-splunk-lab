@@ -91,3 +91,28 @@ The reviewed events appeared consistent with legitimate DNS testing activity and
 ```
 screenshots/long-dns-queries.png
 ```
+
+## Suspicious TLD Investigation
+
+```spl
+index="soc-splunk-lab" sourcetype="dns_logs"
+| where match(query, "\.(xyz|top|club|info|ru)$")
+| stats count by query
+| sort - count
+```
+
+### Purpose
+Identify DNS queries associated with potentially suspicious or uncommon top-level domains (TLDs), such as `.ru`, `.info`, `.xyz`, `.top`, and `.club`.
+
+### Result
+Two DNS queries matched the selected TLD patterns during the analysis.  
+The domains, were further investigated using external threat intelligence platforms (VirusTotal, AbusePDB) and  `www.ironwarez.info` was flagged as malicious.
+
+### Screenshot
+
+```text
+screenshots/suspicious-tlds.png
+```
+```text
+screenshots/suspicious-tlds-VirusTotal.png
+```
