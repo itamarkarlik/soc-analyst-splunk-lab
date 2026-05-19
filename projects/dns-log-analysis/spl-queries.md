@@ -108,7 +108,7 @@ Identify DNS queries associated with potentially suspicious or uncommon top-leve
 Two DNS queries matched the selected TLD patterns during the analysis.  
 The domains, were further investigated using external threat intelligence platforms (VirusTotal, AbusePDB) and  `www.ironwarez.info` was flagged as malicious.
 
-### Screenshot
+### Screenshots
 
 ```text
 screenshots/suspicious-tlds.png
