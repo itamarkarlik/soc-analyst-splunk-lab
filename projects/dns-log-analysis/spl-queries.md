@@ -52,3 +52,20 @@ This helps identify high-activity hosts and establish baseline network behavior.
 
 ### Screenshot
 `Dashboards/top-source-ip.png`
+
+
+## Unique Queried Domains by Source IP
+
+```spl
+index="soc-splunk-lab" sourcetype="dns_logs"
+| stats count dc(dns_query) as unique_domains by src_ip
+| sort - unique_domains
+| head 10
+```
+
+### Purpose
+Identify source IP addresses generating DNS requests to a high number of unique domains.
+
+### Result
+The query displayed the top 10 source IP addresses with the highest number of unique queried domains.  
+This analysis helps identify potentially unusual DNS behavior.
