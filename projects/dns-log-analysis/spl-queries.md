@@ -70,7 +70,7 @@ This helps identify high-activity hosts and establish baseline network behavior.
 ### Screenshot
 
 ```text
-Dashboards/top-source-ip.png
+Dashboards/top-source-ips.png
 ```
 
 ---
