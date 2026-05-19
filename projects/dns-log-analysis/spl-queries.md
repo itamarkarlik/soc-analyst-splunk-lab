@@ -148,3 +148,27 @@ These domains were later reviewed using external threat intelligence platforms f
 ```text
 screenshots/rare-dns-queries.png
 ```
+
+## DNS Activity Over Time
+
+```spl
+index="soc-splunk-lab" sourcetype="dns_logs"
+| rex field=_raw "^(?<unix_time>\d+\.\d+)"
+| eval _time=unix_time
+| timechart span=1m count as dns_events
+```
+
+### Purpose
+
+Visualize DNS traffic activity over time in order to identify traffic spikes, and overall DNS activity patterns throughout the captured dataset.
+
+### Result
+
+The analysis revealed multiple spikes in DNS traffic volume during the observed timeframe.  
+The query also validated that event timestamps were successfully extracted and usable for time-based analysis within Splunk.
+
+### Screenshot
+
+```text
+Dashboards/dns-activity-over-time-panel.png
+```
