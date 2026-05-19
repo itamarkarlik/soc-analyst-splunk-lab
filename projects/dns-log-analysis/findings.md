@@ -11,7 +11,7 @@ The domains were reviewed using external threat intelligence platforms, includin
 - VirusTotal
 - AbuseIPDB
 
-The domain `www.ironwarez.info` was flagged as malicious/suspicious during enrichment analysis.
+The domain `www.ironwarez.info` was flagged by external threat intelligence sources during enrichment analysis.
 
 Additional DNS investigation revealed repeated DNS requests originating from the internal host:
 
