@@ -18,3 +18,9 @@ The review also showed that most DNS traffic was sent over destination port 53 u
 
 Field statistics for the extracted `dest_port` field were reviewed directly within Splunk.  
 Most observed traffic was associated with standard DNS port `53`, while additional activity involving ports `137`, `5355`, and `5353` was also identified.
+
+# Timestamp Parsing
+
+The original DNS logs contained Unix timestamp values within the raw event data.
+
+The timestamps were extracted at search time using `rex` and converted into Splunk’s `_time` field using `eval` to support time-based analysis and visualization.
