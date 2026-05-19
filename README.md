@@ -24,8 +24,4 @@ Main topics covered:
 - Dashboard creation
 - Threat intelligence enrichment using VirusTotal and AbuseIPDB
 
-Project path:
-
-```text
-projects/dns-log-analysis/
-```
+Project folder: [projects/dns-log-analysis](projects/dns-log-analysis/)
