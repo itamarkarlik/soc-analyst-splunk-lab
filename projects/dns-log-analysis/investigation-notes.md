@@ -4,7 +4,9 @@
 
 During the initial review of the raw DNS events, the log structure was manually analyzed in order to understand the position of important network fields within the dataset.
 
-Based on the event structure, the following fields were identified:
+Field extraction was then performed to normalize key DNS attributes for investigation and analysis purposes.
+
+Based on the event structure, the following fields were identified and extracted:
 
 - Source IP
 - Source Port
@@ -13,7 +15,6 @@ Based on the event structure, the following fields were identified:
 - Protocol
 - DNS Query
 
-The review also showed that most DNS traffic was sent over destination port 53 using UDP.
 
 ---
 
