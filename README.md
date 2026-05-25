@@ -103,7 +103,7 @@ The activity originated from multiple internal hosts within the dataset.
 ## Project Structure
 
 ```text
-projects/dns-log-analysis/
+dns-log-analysis/
 │
 ├── Dashboards/
 ├── screenshots/
